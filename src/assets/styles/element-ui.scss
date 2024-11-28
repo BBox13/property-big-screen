@@ -1,0 +1,168 @@
+// cover some element-ui styles
+
+.el-divider--horizontal {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.el-breadcrumb__inner,
+.el-breadcrumb__inner a {
+  font-weight: 400 !important;
+}
+
+.el-upload {
+  input[type='file'] {
+    display: none !important;
+  }
+}
+
+.el-upload__input {
+  display: none;
+}
+
+.cell {
+  .el-tag {
+    margin-right: 0px;
+  }
+}
+
+.small-padding {
+  .cell {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+.fixed-width {
+  .el-button--mini {
+    padding: 7px 10px;
+    width: 60px;
+  }
+}
+
+.status-col {
+  .cell {
+    padding: 0 10px;
+    text-align: center;
+
+    .el-tag {
+      margin-right: 0px;
+    }
+  }
+}
+
+/*-------------Dialog-------------**/
+.el-overlay {
+  overflow: hidden;
+
+  .el-overlay-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    .el-dialog {
+      margin: 0 auto !important;
+
+      .el-dialog__body {
+        padding: 15px !important;
+      }
+    }
+  }
+}
+
+.el-dialog__body {
+  max-height: calc(90vh - 111px) !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+// refine element ui upload
+.upload-container {
+  .el-upload {
+    width: 100%;
+
+    .el-upload-dragger {
+      width: 100%;
+      height: 200px;
+    }
+  }
+}
+
+// dropdown
+.el-dropdown-menu {
+  a {
+    display: block;
+  }
+}
+
+// fix date-picker ui bug in filter-item
+.el-range-editor.el-input__inner {
+  display: inline-flex !important;
+}
+
+// to fix el-date-picker css style
+.el-range-separator {
+  box-sizing: content-box;
+}
+
+.el-menu--collapse > div > .el-submenu > .el-submenu__title .el-submenu__icon-arrow {
+  display: none;
+}
+
+.el-dropdown .el-dropdown-link {
+  color: var(--el-color-primary) !important;
+}
+
+input[type='number'].el-input__inner {
+  text-align: left;
+}
+
+.el-dialog__body > .el-form > .el-form-item > .el-form-item__content > .el-input-number{
+  width: 100%;
+}
+
+.dialog-form{
+  .el-input.is-disabled{
+    .el-input__wrapper{
+      background-color: #fff;
+      padding: 1px 11px;
+    }
+
+    .el-input__inner{
+      -webkit-text-fill-color:var(--el-input-text-color, var(--el-text-color-regular));
+      color: var(--el-input-text-color, var(--el-text-color-regular));
+    }
+  }
+
+  .el-textarea.is-disabled{
+    .el-textarea__inner{
+      background-color: #fff;
+      -webkit-text-fill-color:var(--el-input-text-color, var(--el-text-color-regular));
+      color: var(--el-input-text-color, var(--el-text-color-regular));
+    }
+  }
+
+  .el-input-number{
+    &.is-disabled{
+      width: 100%;  
+      .el-input-number__decrease, .el-input-number__increase{
+        width: 0px;
+        display: none;
+      }
+    }
+  }
+
+  .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width: 100%;
+  }
+
+  .el-select__wrapper{
+    &.is-disabled{
+      background-color: #fff;
+      -webkit-text-fill-color:var(--el-input-text-color, var(--el-text-color-regular));
+      color: var(--el-input-text-color, var(--el-text-color-regular));
+    }
+  }
+}
