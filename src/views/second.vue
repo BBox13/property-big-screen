@@ -35,6 +35,9 @@
         <img src="@/assets/t-p.png" class="h-36px w-36px" />
       </div>
     </div>
+    <div class="center w-800px h-600px">
+      <three3D  />
+    </div>
     <div class="flex justify-between">
       <div class="m-l-31px m-t-4px w-910px flex justify-between">
         <div class="w-406px flex flex-col">
@@ -130,6 +133,7 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import router from '@/router';
+import three3D from '../components/three3D/index.vue';
 
 const totalTabs = ref([
   [
@@ -183,6 +187,11 @@ function handleChangeTab(current:number){
 </script>
 
 <style lang="scss" scoped>
+.center{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .bg{
   background-image: url('@/assets/bg.png');
 }
