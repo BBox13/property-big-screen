@@ -35,7 +35,7 @@
         <img src="@/assets/t-p.png" class="h-36px w-36px" />
       </div>
     </div>
-    <div class="center w-800px h-600px">
+    <div class="center w-1000px h-700px pos-absolute top-200px left-1300px">
       <three3D  />
     </div>
     <div class="flex justify-between">
@@ -187,11 +187,6 @@ function handleChangeTab(current:number){
 </script>
 
 <style lang="scss" scoped>
-.center{
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 .bg{
   background-image: url('@/assets/bg.png');
 }

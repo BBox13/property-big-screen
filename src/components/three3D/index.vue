@@ -1,34 +1,57 @@
 <template>
-  <div class="wrap">
-    <div class="three" ref="threejsRef"></div>
-  </div>
+    <div class="three" @click="threeClick($event)" ref="threejsRef"></div>
 </template>
 <script lang="ts" setup>
 import { defineComponent, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 
 import { 
-  Scene,PerspectiveCamera,WebGLRenderer,Box3,Vector3,Color,sRGBEncoding,
+  Scene,PerspectiveCamera,WebGLRenderer,Box3,Vector3,Color,
   MeshBasicMaterial,Vector2,Raycaster,Mesh,AmbientLight,DirectionalLight,HemisphereLight
  } from 'three';
  import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { functions } from "lodash-es";
 
-const  threejsRef = ref<HTMLDivElement|null>(null)
+const threejsRef = ref<HTMLDivElement>()
 
 onMounted(()=>{
   initThree()
 })
 
+function threeClick(event:MouseEvent){
+  let el=event.target as HTMLElement
+  let mouse:any={};
+  mouse.x = (event.clientX / el.offsetWidth) * 2 - 1
+  mouse.y = -(event.clientY / el.offsetHeight) *2 + 1
+  //点击后画一条射线
+  raycaster.setFromCamera(mouse, camera)
+  console.log(scene);
+  
+  //射线与模型的相交点
+  // return
+  let intersects = raycaster.intersectObjects(
+    scene.children.find(val=>val.name=="Model")
+    .children.filter((val)=>{
+      //大厦的模型的name是___1和___
+      return val.type=="Group"&& ['___',"___1"].includes(val.name)
+    }),true)
+  //射线穿过的模型
+  // TODO::处理点击后的操作
+  if(intersects.length>8){
+  //射线穿过的模型
+  console.log(intersects[0]);
+  console.log('点击大厦模型');
+  }
+}
 
-
-let scene,camera,renderer,controls,raycaster,mouse  ;
+let scene:any,camera:any,renderer:any,controls:any,raycaster:any,mouse:any  ;
 const initThree = ()=>{
-   scene = new Scene()
-   camera = new PerspectiveCamera(75,threejsRef.value?.offsetWidth/threejsRef.value?.offsetHeight,0.1,1000)
-    camera.position.set(60, 30, 120);//设置相机位置
+  scene = new Scene()
+  camera = new PerspectiveCamera(75,threejsRef.value?.offsetWidth/threejsRef.value?.offsetHeight,0.1,1000)
+  camera.position.set(60, 30, 120);//设置相机位置
   
   renderer = new WebGLRenderer({alpha: true});
-  renderer.LinearEncoding=sRGBEncoding
+  // renderer.LinearEncoding=sRGBEncoding
   renderer.setSize( threejsRef.value?.offsetWidth,threejsRef.value?.offsetHeight );
   raycaster=new Raycaster()
   mouse=new Vector3()
@@ -65,32 +88,17 @@ function load_Fbx() {
                 // item?.object?.material&&item.object.material.color?.set(0xff0000)
 	           }
 	        });
+          fbx.rotation.y=Math.PI/11
+          console.log(fbx.rotation);
           
-          threejsRef.value.addEventListener('click',(event)=>{
-            mouse.x = (event.clientX / threejsRef.value.offsetWidth) * 2 - 1
-            mouse.y = -(event.clientY / threejsRef.value.offsetHeight) *2 + 1
-            //点击后画一条射线
-            raycaster.setFromCamera(mouse, camera)
-            //射线与模型的相交点
-            var intersects = raycaster.intersectObjects(fbx.children.filter((val)=>{
-              //大厦的模型的name是___1和___
-              return val.type=="Group"&& ['___',"___1"].includes(val.name)
-            }),true)
-            //射线穿过的模型
-              console.log(intersects[0]);
-              // TODO::处理点击后的操作
-            if(intersects.length>8){
-              console.log(intersects.length);
-            }
-          })
           // _ChangeMaterialEmissive(fbx)
-          let scale=0.0004
+          let scale=0.00045
 	        fbx.scale.set(scale,scale,scale);
           ModelAutoCenter(fbx,1)
 	        scene.add(fbx);
 	    });
       }
-   function ModelAutoCenter(group:any,scale:number){
+function ModelAutoCenter(group:any,scale:number){
     let box3 = new Box3()
     // 计算层级模型group的包围盒
     // 模型group是加载一个三维模型返回的对象，包含多个网格模型
@@ -108,22 +116,15 @@ function load_Fbx() {
 function animate() {
   renderer.render( scene, camera ); //渲染界面
   requestAnimationFrame(animate); //循环调用函数
-  
-// controls.update(); //自动旋转
+  // controls.update(); //自动旋转
 }
 
 
 </script>
 
 <style lang="scss" scoped>
-.wrap {
-      width: 100%;
-      height: 100%;
-    .three{
-      width: 100%;
-      height: 100%;
-    }
-
+.three{
+  width: 100%;
+  height: 100%;
 }
-
 </style>
