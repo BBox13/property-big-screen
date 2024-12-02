@@ -48,7 +48,7 @@ function threeClick(event:MouseEvent){
   if(intersects.length>8){
   //射线穿过的模型
     console.log(intersects[0]);
-    emits("handleClick",'123')
+    emits("handleClick",event)
   }
 }
 

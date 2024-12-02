@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="center w-1000px h-700px pos-absolute top-200px left-1300px">
-      <three3D  @handleClick="()=>{console.log('点击大厦')}"/>
+      <three3D  @handleClick="(e,a)=>{console.log('点击大厦',e,a)}"/>
     </div>
     <div class="flex justify-between">
       <div class="m-l-31px m-t-4px w-910px flex justify-between">
