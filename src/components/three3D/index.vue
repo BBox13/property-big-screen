@@ -14,6 +14,7 @@ import { functions } from "lodash-es";
 
 const threejsRef = ref<HTMLDivElement>()
 
+const emits = defineEmits(["handleClick"])
 onMounted(()=>{
   initThree()
 })
@@ -21,11 +22,17 @@ onMounted(()=>{
 function threeClick(event:MouseEvent){
   let el=event.target as HTMLElement
   let mouse:any={};
-  mouse.x = (event.clientX / el.offsetWidth) * 2 - 1
-  mouse.y = -(event.clientY / el.offsetHeight) *2 + 1
+  mouse.x = (event.offsetX / el.offsetWidth) * 2 - 1
+  mouse.y = -(event.offsetY / el.offsetHeight) *2 + 1
   //点击后画一条射线
+  console.log(event.clientX,el.offsetWidth,event);
+  
   raycaster.setFromCamera(mouse, camera)
-  console.log(scene);
+  console.log(scene,scene.children.find(val=>val.name=="Model")
+    .children.filter((val)=>{
+      //大厦的模型的name是___1和___
+      return val.type=="Group"&& ['___',"___1"].includes(val.name)
+    }));
   
   //射线与模型的相交点
   // return
@@ -37,10 +44,11 @@ function threeClick(event:MouseEvent){
     }),true)
   //射线穿过的模型
   // TODO::处理点击后的操作
+    console.log(intersects.length);
   if(intersects.length>8){
   //射线穿过的模型
-  console.log(intersects[0]);
-  console.log('点击大厦模型');
+    console.log(intersects[0]);
+    emits("handleClick",'123')
   }
 }
 
