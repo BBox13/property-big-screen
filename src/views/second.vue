@@ -35,8 +35,9 @@
         <img src="@/assets/t-p.png" class="h-36px w-36px" />
       </div>
     </div>
-    <div class="center w-2000px h-1200px pos-absolute top-200px left-1300px">
-      <three3D  @handleClick="(e,a)=>{console.log('点击大厦',e,a)}"/>
+    <div class="center w-2000px h-900px pos-absolute top-100px left-900px">
+      <!-- 模型大小与容器大小也有关 -->
+      <three3D :moData="moData" :stopBoo="stopBoo"  @handleClick=""/>
     </div>
     <div class="flex justify-between">
       <div class="m-l-31px m-t-4px w-910px flex justify-between">
@@ -134,7 +135,18 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import router from '@/router';
 import three3D from '../components/three3D/index.vue';
-
+let stopBoo=ref(false);  //模型是否禁止旋转
+let moData=ref({
+  scale:0.00047,      //模型大小
+  rotation:{          //模型角度
+    x:-Math.PI/180*15,
+    y:-Math.PI/180*6,
+    z:Math.PI/180*8}
+});
+// 模型点击事件,e是点击event对象 ，点击后禁止旋转模型
+const handleClick=(e:any)=>{console.log('点击大厦',e);stopBoo.value=true}
+// 点击后可以旋转模型
+window.addEventListener('click',()=>{stopBoo.value=false});
 const totalTabs = ref([
   [
     '项目名称', '项目期数', '项目地点', '项目业态', '项目负责人'
