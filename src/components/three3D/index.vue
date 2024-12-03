@@ -86,7 +86,7 @@ const initThree = ()=>{
 }
 function load_Fbx() {
 	    var loader = new FBXLoader();
-	    loader.load(`./src/assets/贴图/汉阳大厦.FBX`, function (fbx) {
+	    loader.load(`./src/assets/贴图/00.FBX`, function (fbx) {
         console.log(fbx,123);//贴图/汉阳大厦 荆楚大厦
         // return
 	        fbx.traverse(function (item) {

@@ -35,7 +35,7 @@
         <img src="@/assets/t-p.png" class="h-36px w-36px" />
       </div>
     </div>
-    <div class="center w-1000px h-700px pos-absolute top-200px left-1300px">
+    <div class="center w-2000px h-1200px pos-absolute top-200px left-1300px">
       <three3D  @handleClick="(e,a)=>{console.log('点击大厦',e,a)}"/>
     </div>
     <div class="flex justify-between">
@@ -206,7 +206,9 @@ function handleChangeTab(current:number){
 .right{
   background-image: url('@/assets/c-r.png');
 }
-
+.center{
+  // background: #0c2340;
+}
 .text{
     text-shadow:
     0 0 5px rgba(29,129,219, 1),  /* 较轻的光晕 */
