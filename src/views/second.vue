@@ -37,7 +37,7 @@
     </div>
     <div class="center w-2000px h-900px pos-absolute top-100px left-900px">
       <!-- 模型大小与容器大小也有关 -->
-      <three3D :moData="moData" :stopBoo="stopBoo"  @handleClick=""/>
+      <three3D :moData="moData" :stopBoo="stopBoo"  @handleClick="handleClick"/>
     </div>
     <div class="flex justify-between">
       <div class="m-l-31px m-t-4px w-910px flex justify-between">

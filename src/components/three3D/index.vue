@@ -70,10 +70,10 @@ const initThree = ()=>{
   mouse=new Vector3()
   
  
-  const hesLight = new HemisphereLight(0xcccccc,0x000000)
+  const hesLight = new HemisphereLight(0xffffff,0x000000)
     hesLight.intensity = 3
     scene.add(hesLight)
-    let Ambient = new AmbientLight(0x404040, 2);
+    let Ambient = new AmbientLight(0xcccccc, 2);
     scene.add(Ambient);
   //   let ambientLight = new AmbientLight(0xffffff,2); //设置环境光
   // scene.add(ambientLight); //将环境光添加到场景中
@@ -102,8 +102,8 @@ function load_Fbx() {
 	        fbx.traverse(function (item) {
 	           if(item instanceof Mesh){
 	               item.castShadow = true;
-                 item.material.emissive = item.material.color
-                 item.material.emissiveMap = item.material.map
+                //  item.material.emissive = item.material.color
+                //  item.material.emissiveMap = item.material.map
 	               item.receiveShadow = true;
                 // item?.object?.material&&item.object.material.color?.set(0xff0000)
 	           }
