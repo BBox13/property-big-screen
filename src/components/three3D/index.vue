@@ -96,7 +96,7 @@ const initThree = ()=>{
 }
 function load_Fbx() {
 	    var loader = new FBXLoader();
-	    loader.load(`./src/assets/贴图/汉阳大厦.FBX`, function (fbx) {
+	    loader.load(`./src/assets/贴图/01.FBX`, function (fbx) {
         console.log(fbx,123);//贴图/汉阳大厦 荆楚大厦
         // return
 	        fbx.traverse(function (item) {
@@ -132,8 +132,8 @@ function ModelAutoCenter(group:any,scale:number){
     box3.getCenter(center)
 
     // 重新设置模型的位置，使之居中。
-    group.position.x = (group.position.x - center.x)/scale-5
-    group.position.y = (group.position.y - center.y)/scale-10
+    group.position.x = (group.position.x - center.x)/scale
+    group.position.y = (group.position.y - center.y)/scale-15
     group.position.z = (group.position.z - center.z)/scale
     console.log("center.x", group.position,center)
 }
