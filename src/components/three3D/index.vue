@@ -44,7 +44,7 @@ function threeClick(event:MouseEvent){
     scene.children.find(val=>val.type=="Group")
     .children.filter((val)=>{
       //大厦的模型的name是___1和___
-      return val.type=="Group"&& ["___","___1"].includes(val.name)
+      return val.type=="Group"&& ["___","___1","组001"].includes(val.name)
     }),true)
   //射线穿过的模型
   // TODO::处理点击后的操作
