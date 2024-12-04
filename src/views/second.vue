@@ -138,10 +138,10 @@ import three3D from '../components/three3D/index.vue';
 let stopBoo=ref(false);  //模型是否禁止旋转
 let moData=ref({
   scale:0.0006,      //模型大小
-  rotation:{          //模型角度
-    x:-Math.PI/180*1,
-    y:-Math.PI/180*100,
-    z:Math.PI/180*24}
+  cameraPosition:{          //相机位置
+    x:100,
+    y:-48,
+    z:-100}
 });
 // 模型点击事件,e是点击event对象 ，点击后禁止旋转模型
 const handleClick=(e:any)=>{console.log('点击大厦',e);stopBoo.value=true}

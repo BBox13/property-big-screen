@@ -5,7 +5,7 @@
 import { defineComponent, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 
 import { 
-  Scene,PerspectiveCamera,WebGLRenderer,Box3,Vector3,Color,PointLight,
+  Scene,PerspectiveCamera,WebGLRenderer,AxesHelper,Box3,Vector3,Color,PointLight,
   MeshBasicMaterial,Vector2,Raycaster,Mesh,AmbientLight,DirectionalLight,HemisphereLight
  } from 'three';
  import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
@@ -60,8 +60,11 @@ let scene:any,camera:any,renderer:any,controls:any,raycaster:any,mouse:any  ;
 
 const initThree = ()=>{
   scene = new Scene()
+  let {x,y,z}=props.moData?.cameraPosition as any   //相机位置
+//   const axesHelper = new AxesHelper(150); //设置坐标轴
+// scene.add(axesHelper);
   camera = new PerspectiveCamera(75,threejsRef.value?.offsetWidth/threejsRef.value?.offsetHeight,0.1,1000)
-  camera.position.set(60, 30, 120);//设置相机位置
+  camera.position.set(x,y,z);//设置相机位置
   
   renderer = new WebGLRenderer({alpha: true});
   // renderer.LinearEncoding=sRGBEncoding
@@ -69,23 +72,24 @@ const initThree = ()=>{
   raycaster=new Raycaster()
   mouse=new Vector3()
   
- 
-  const hesLight = new HemisphereLight(0xffffff,0x000000)
-    hesLight.intensity = 3
-    scene.add(hesLight)
-    let Ambient = new AmbientLight(0xcccccc, 2);
+  renderer.sortObjects = true;
+  // const hesLight = new HemisphereLight(0xffffff,0x000000)
+  //   hesLight.intensity = 3
+  //   scene.add(hesLight)
+    let Ambient = new AmbientLight(0x404040, 2);
     scene.add(Ambient);
   //   let ambientLight = new AmbientLight(0xffffff,2); //设置环境光
   // scene.add(ambientLight); //将环境光添加到场景中
-  // let pointLight = new PointLight(0xffffff, 1, 0);
-  // pointLight.position.set(60, 30, 120); //设置点光源位置
-  // scene.add(pointLight); //将点光源添加至场景
+  let pointLight = new PointLight(0xffffff, 1, 100);
+  pointLight.position.set(50, 50, 0); //设置点光源位置
+  scene.add(pointLight); //将点光源添加至场景
 
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 0, 0); //设定中心点
   controls.update(0); 
   controls.autoRotate =true;
+  controls.maxPolarAngle = Math.PI/180*105;
   controls.saveState()
   load_Fbx()
   //挂载dom
@@ -102,8 +106,8 @@ function load_Fbx() {
 	        fbx.traverse(function (item) {
 	           if(item instanceof Mesh){
 	               item.castShadow = true;
-                //  item.material.emissive = item.material.color
-                //  item.material.emissiveMap = item.material.map
+                 item.material.emissive = item.material.color
+                 item.material.emissiveMap = item.material.map
 	               item.receiveShadow = true;
                 // item?.object?.material&&item.object.material.color?.set(0xff0000)
 	           }
@@ -111,9 +115,9 @@ function load_Fbx() {
           // fbx.rotation.z=Math.PI/180*4
           // fbx.rotation.x=-Math.PI/180*12
           // fbx.rotation.y=-Math.PI/180*6
-          let {x,y,z}=props.moData?.rotation as any
-          fbx.rotation.set(x,y,z)
-          console.log(fbx.rotation);
+          // let {x,y,z}=props.moData?.rotation as any
+          // fbx.rotation.set(x,y,z)
+          // console.log(fbx.rotation);
           
           // _ChangeMaterialEmissive(fbx)
           let scale=props.moData?.scale||0.00047
@@ -133,7 +137,7 @@ function ModelAutoCenter(group:any,scale:number){
 
     // 重新设置模型的位置，使之居中。
     group.position.x = (group.position.x - center.x)/scale
-    group.position.y = (group.position.y - center.y)/scale-15
+    group.position.y = (group.position.y - center.y)/scale-20
     group.position.z = (group.position.z - center.z)/scale
     console.log("center.x", group.position,center)
 }
